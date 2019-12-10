@@ -2,20 +2,11 @@ var id;
 
 (function init() {
 
-    if (localStorage.getItem("taskId") == null) {
-        localStorage.setItem("taskId", 1);
+    var tasks = getTasksFromLocalStorage();
+
+    for (var i = 0; i < tasks.length; i++) {
+        addItemToTheList(tasks[i], tasks[i].id);
     }
-    id = localStorage.getItem("taskId");
-
-    for (var i = 1; i < id; i++) {
-
-        var task = JSON.parse(localStorage.getItem(i));
-
-        if (task != null) {
-            addItemToTheList(task, i);
-        }
-    }
-
 })();
 
 function addTask(task) {
@@ -68,6 +59,15 @@ function addItemToTheList(item, i) {
     var label = document.createElement("label");
     label.textContent = item.description;
     label.for = "checkbox";
+    if (item.priority == 1) {
+        label.style.color = "#ff7f50";
+    }
+    if (item.priority == 2) {
+        label.style.color = "#ff6348";
+    }
+    if (item.priority == 3) {
+        label.style.color = "#ff4757";
+    }
 
     var editButton = document.createElement("button");
     editButton.textContent = "Edit";
@@ -118,6 +118,57 @@ function Task(name, description, priority) {
     this.lastModified = new Date();
     this.priority = priority;
     this.done = false;
+}
+
+function sortTasks(property, order) {
+    var tasks = getTasksFromLocalStorage();
+
+    if (order == "asc") {
+        tasks.sort(function (a, b) {
+            if (a[property] > b[property]) {
+                return 1;
+            } else {
+                return -1;
+            }
+            // return a[property] > b[property];
+        });
+    } else {
+        tasks.sort(function (a, b) {
+            if (a[property] < b[property]) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
+    }
+
+    document.getElementById("taskList").innerHTML = "";
+
+    for (var i = 0; i < tasks.length; i++) {
+        addItemToTheList(tasks[i], tasks[i].id);
+    }
+}
+
+function getTasksFromLocalStorage() {
+
+    var tasks = [];
+
+    if (localStorage.getItem("taskId") == null) {
+        localStorage.setItem("taskId", 1);
+    }
+    id = localStorage.getItem("taskId");
+
+    for (var i = 1; i < id; i++) {
+
+        var task = JSON.parse(localStorage.getItem(i));
+
+        if (task != null) {
+            task.id = i;
+            tasks.push(task);
+        }
+    }
+
+    return tasks;
 }
 
 

@@ -44,6 +44,17 @@ h1 {
     font-size: 18px;
 }
 
+.sort {
+    width: 15%;
+    padding: 7px;
+    margin-left: 2%;
+	border-radius:5px;
+    border:1px solid #566963;
+    color: #000;
+    background-color: #dff9fb;
+    font-size: 13px;
+}
+
 ul {
     list-style: none;
     margin-top: 3%;
@@ -52,10 +63,11 @@ ul {
 
 li {
     width: 100%;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.7);
     padding: 10px;
     margin: 6px 0;
     overflow: hidden;
+    border-radius: 5px;
 }
 
 li button {
@@ -64,6 +76,7 @@ li button {
     margin: 1%;
     border-radius:5px;
     border:1px solid #566963;
+    font-size: 13px;
 }
 
 li input {
@@ -74,3 +87,15 @@ li input {
     color:red;
     text-decoration: line-through;
   } 
+
+.sortSelect {
+    margin: 1%;
+    width: 25%;
+    border: none;
+    border-bottom: 2px solid #353b48;
+    background: none;
+    padding: 5px;
+    outline: none;
+    font-size: 15px;
+    color: #353b48;
+}

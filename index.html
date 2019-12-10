@@ -11,13 +11,26 @@
     <input type="text" placeholder="Name" name="taskName" id="taskName">
     <input type="text" placeholder="Description" name="taskDescription" id="taskDescription">
     <select id="taskPriority">
-        <option value="low">Low</option>
-        <option value="medium">Medium</option>
-        <option value="high">High</option>
+        <option value="1">Low</option>
+        <option value="2">Medium</option>
+        <option value="3">High</option>
     </select>
     <button class="addButton" onclick="addTask()">Add</button>
 
     <ul id="taskList"></ul>
+
+    <span>Sort by: </span>
+    <select class="sortSelect" id="sortPriority">
+        <option value="name">Name</option>
+        <option value="description">Description</option>
+        <option value="priority">Priority</option>
+    </select>
+    <select class="sortSelect" id="sortOrder">
+        <option>asc</option>
+        <option>desc</option>
+    </select>
+
+    <button class="sort" onclick="sortTasks(sortPriority.options[sortPriority.selectedIndex].value, sortOrder.options[sortOrder.selectedIndex].value)">Sort</button>
 
     <script src="script.js"></script>
 </body>

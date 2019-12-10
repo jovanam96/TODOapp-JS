@@ -7,9 +7,9 @@ var id;
     }
     id = localStorage.getItem("taskId");
 
-    for (let i = 1; i < id; i++) {
+    for (var i = 1; i < id; i++) {
 
-        var task = localStorage.getItem(i);
+        var task = JSON.parse(localStorage.getItem(i));
 
         if (task != null) {
             addItemToTheList(task, i);
@@ -19,19 +19,28 @@ var id;
 })();
 
 function addTask(task) {
-    var task = document.getElementById("task").value;
 
-    if (task === "") {
+    var name = document.getElementById("taskName").value;
+    var description = document.getElementById("taskDescription").value;
+    var priority = document.getElementById("taskPriority")
+    var selectedPriority = priority[priority.selectedIndex].value;
+    
+    var task = new Task(name, description, selectedPriority);
+
+    if (description === "") {
         alert("Task can not be empty!");
     } else {
 
         addItemToTheList(task, id);
 
-        localStorage.setItem(id, task);
+        localStorage.setItem(id, JSON.stringify(task));
         localStorage.setItem("taskId", ++id);
 
-        document.getElementById("task").value = "";
+        document.getElementById("taskName").value = "";
+        document.getElementById("taskDescription").value = "";
+        document.getElementById("taskPriority").selectedIndex = 0;
     }
+    
 }
 
 function addItemToTheList(item, i) {
@@ -44,16 +53,20 @@ function addItemToTheList(item, i) {
     checkbox.classList.add("checkbox");
 
     var label = document.createElement("label");
-    label.textContent = item;
+    label.textContent = item.description;
     label.for = "checkbox";
 
     var editButton = document.createElement("button");
-    editButton.setAttribute("onclick", "editTask(event)");
     editButton.textContent = "Edit";
+    editButton.addEventListener("click" , function() {
+        editTask(event);
+    })
 
     var deleteButton = document.createElement("button");
-    deleteButton.setAttribute("onclick", "deleteTask(event)");
     deleteButton.textContent = "Delete";
+    deleteButton.addEventListener("click", function() {
+        deleteTask(event);
+    })
 
     taskListItem.appendChild(checkbox);
     taskListItem.appendChild(label);
@@ -65,8 +78,15 @@ function addItemToTheList(item, i) {
 function editTask(event) {
     var p = prompt("Edit task");
     listItem = event.target.parentElement;
-    listItem.querySelector("label").textContent = p;
-    localStorage.setItem(listItem.id, p);
+    if (p === "") {
+        alert("Task can not be empty!");
+    } else {
+        var task = JSON.parse(localStorage.getItem(listItem.id));
+        listItem.querySelector("label").textContent = p;
+        task.description = p;
+        task.lastModified = new Date();
+        localStorage.setItem(listItem.id, JSON.stringify(task));
+    }
 }
 
 function deleteTask() {
@@ -77,3 +97,13 @@ function deleteTask() {
         listItem.parentNode.removeChild(listItem);
     }
 }
+
+
+function Task(name, description, priority) {
+    this.name = name;
+    this.description = description;
+    this.lastModified = new Date();
+    this.priority = priority;
+}
+
+

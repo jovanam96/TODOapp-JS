@@ -6,7 +6,7 @@
 }
 
 body {
-    background-image: linear-gradient(120deg, #e74c3c, #bdc3c7);
+    background-image: linear-gradient(120deg, #ff7979, #bdc3c7);
     min-height: 100vh;
     margin-left: 10%;
     margin-right: 10%;
@@ -17,8 +17,9 @@ h1 {
     text-align: center;
 }
 
-#task {
-    width: 60%;
+#taskName, #taskDescription, #taskPriority {
+    margin: 1%;
+    width: 25%;
     border: none;
     border-bottom: 2px solid #000;
     background: none;
@@ -27,14 +28,20 @@ h1 {
     font-size: 18px;
 }
 
+
 ::placeholder {
     color:#353b48;
 }
 
 .addButton {
-    width: 37%;
-    padding: 5px;
+    width: 15%;
+    padding: 7px;
     margin-left: 2%;
+	border-radius:5px;
+    border:1px solid #566963;
+    color: #fff;
+    background-color:#487eb0;
+    font-size: 18px;
 }
 
 ul {
@@ -55,6 +62,8 @@ li button {
     float: right;
     padding: 5px;
     margin: 1%;
+    border-radius:5px;
+    border:1px solid #566963;
 }
 
 li input {

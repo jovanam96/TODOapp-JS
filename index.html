@@ -8,7 +8,13 @@
 
 <body>
     <h1>TODO list</h1>
-    <input type="text" placeholder="Enter task" name="task" id="task">
+    <input type="text" placeholder="Name" name="taskName" id="taskName">
+    <input type="text" placeholder="Description" name="taskDescription" id="taskDescription">
+    <select id="taskPriority">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+    </select>
     <button class="addButton" onclick="addTask()">Add</button>
 
     <ul id="taskList"></ul>

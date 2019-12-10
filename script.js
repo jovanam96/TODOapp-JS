@@ -24,7 +24,7 @@ function addTask(task) {
     var description = document.getElementById("taskDescription").value;
     var priority = document.getElementById("taskPriority")
     var selectedPriority = priority[priority.selectedIndex].value;
-    
+
     var task = new Task(name, description, selectedPriority);
 
     if (description === "") {
@@ -40,10 +40,11 @@ function addTask(task) {
         document.getElementById("taskDescription").value = "";
         document.getElementById("taskPriority").selectedIndex = 0;
     }
-    
+
 }
 
 function addItemToTheList(item, i) {
+
     var taskList = document.getElementById("taskList");
     var taskListItem = document.createElement("li");
     taskListItem.id = i;
@@ -51,6 +52,18 @@ function addItemToTheList(item, i) {
     var checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.classList.add("checkbox");
+    checkbox.addEventListener("change", function (event) {
+        var task = JSON.parse(localStorage.getItem(event.target.parentElement.id));
+        if (event.target.checked) {
+            task.done = true;
+        } else {
+            task.done = false;
+        }
+        localStorage.setItem(event.target.parentElement.id, JSON.stringify(task));
+    })
+    if (item.done === true) {
+        checkbox.click();
+    }
 
     var label = document.createElement("label");
     label.textContent = item.description;
@@ -58,13 +71,13 @@ function addItemToTheList(item, i) {
 
     var editButton = document.createElement("button");
     editButton.textContent = "Edit";
-    editButton.addEventListener("click" , function() {
+    editButton.addEventListener("click", function () {
         editTask(event);
     })
 
     var deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
-    deleteButton.addEventListener("click", function() {
+    deleteButton.addEventListener("click", function () {
         deleteTask(event);
     })
 
@@ -104,6 +117,7 @@ function Task(name, description, priority) {
     this.description = description;
     this.lastModified = new Date();
     this.priority = priority;
+    this.done = false;
 }
 
 

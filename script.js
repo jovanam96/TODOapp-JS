@@ -51,7 +51,8 @@ function addItemToTheList(item, i) {
             task.done = false;
         }
         localStorage.setItem(event.target.parentElement.id, JSON.stringify(task));
-    })
+    });
+
     if (item.done === true) {
         checkbox.click();
     }
@@ -66,7 +67,7 @@ function addItemToTheList(item, i) {
         label.style.color = "#ff6348";
     }
     if (item.priority == 3) {
-        label.style.color = "#ff4757";
+        label.style.color = "#c0392b";
     }
 
     var editButton = document.createElement("button");
@@ -102,7 +103,7 @@ function editTask(event) {
     }
 }
 
-function deleteTask() {
+function deleteTask(event) {
     var result = confirm("Are you sure you want to delete task?");
     if (result) {
         listItem = event.target.parentElement;
